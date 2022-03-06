@@ -1,0 +1,92 @@
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'dart:async';
+
+class Memo{
+  static const databaseName = 'memo';
+  final int recId;
+  final String content;
+
+  Memo({
+    required this.recId,
+    required this.content,
+  }); 
+  
+  Map<String, dynamic> toMap(){
+    return {
+      'content':content
+    };
+  }
+
+  static Future<Database> get database async {
+    final Future<Database> _database = openDatabase(
+      join(await getDatabasesPath(),databaseName+'.db'),
+      onCreate: (db,version){
+        return db.execute(
+          "CREATE TABLE memo(recId INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)",
+        );
+      },
+      version: 1,
+    );
+    return _database;
+  }
+
+  /// 全てのデータ取得
+  static Future<List<Memo>> getDatas() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(databaseName);
+    return List.generate(maps.length,(i){
+      return Memo(
+        recId: maps[i]['recId'],
+        content: maps[i]['content'],
+      );
+    });
+  }
+
+  /// 特定のデータ取得
+  static Future<List<Memo>> getData(int recId) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(databaseName,where: "recId=?",whereArgs:[recId]);
+    return List.generate(maps.length,(i){
+      return Memo(
+        recId: maps[i]['recId'],
+        content: maps[i]['content'],
+      );
+    });
+  }
+
+  /// データ挿入
+  /// @param Note データモデル
+  static Future<void> insertData(Memo data) async {
+    final Database db = await database;
+    await db.insert(
+      databaseName,
+      data.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  /// データ更新
+  /// @param recId レコードID
+  /// @param data データモデル
+  static void update(int recId,Memo data) async{
+    final Database db = await database;
+    await db.update(
+      databaseName,
+      data.toMap(),
+      where:"recId=?",
+      whereArgs: [recId],
+    );
+  }
+
+  /// データ削除
+  /// @param recId レコードID
+  static Future<void> deleteData(int recId) async {
+    final db = await database;
+    await db.delete(
+      databaseName,
+      where: "recId = ?",
+      whereArgs: [recId],
+    );
+  }
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_basis/memo/listPage/list_page.dart';
+import 'package:app_memo/memo/listPage/list_page.dart';
 
 class AppMemo extends StatelessWidget {
   const AppMemo({Key? key}) : super(key: key);
