@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:app_basis/basis/sample/sample_grid_layout.dart';
-import 'package:app_basis/basis/sample/sample_tab1.dart';
+import 'package:app_memo/basis/sample/sample_grid_layout.dart';
+import 'package:app_memo/basis/sample/sample_tab1.dart';
 
 class TabApp extends StatelessWidget {
   const TabApp({Key? key}) : super(key: key);

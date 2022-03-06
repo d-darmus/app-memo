@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:app_memo/basis/sample/sample_page0.dart';
+import 'package:app_memo/memo/listPage/list_page.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class AppMemo extends StatelessWidget {
+  const AppMemo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.yellow,
       ),
-      home: const MyHomePage(title: 'Title1'),
+      home: const MyHomePage(title: '一覧'),
     );
   }
 }
@@ -24,6 +24,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const SamplePage0();
+    return const ListPage();
   }
 }
