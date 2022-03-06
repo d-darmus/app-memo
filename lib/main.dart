@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:app_basis/basis/simple_page/simple_page.dart';
+import 'package:app_basis/memo/app_memo.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AppMemo());
 }
